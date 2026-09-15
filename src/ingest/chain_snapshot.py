@@ -68,7 +68,7 @@ def write_snapshot(df: pd.DataFrame) -> Path:
     stamp = as_of.strftime("%h%M%S")
 
     folder = RAW_DIR / f"date={day}"
-    folder.mkidr(parents=True, exist_ok=True)
+    folder.mkdir(parents=True, exist_ok=True)
 
     path = folder / f"{TICKER}_{stamp}.parquet"
     df.to_parquet(path, index=False)
@@ -97,4 +97,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-    
