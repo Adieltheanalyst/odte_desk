@@ -9,6 +9,7 @@ SPY_DATA= yf.download("SPY", start="2016-09-09",end="2026-09-09", interval="1d",
 
 if isinstance(SPY_DATA.columns, pd.MultiIndex):
     SPY_DATA.columns= SPY_DATA.columns.droplevel(1)
+# SPY_DATA.column.name=None
 SPY_DATA.name="date"
 SPY_DATA["ingested_ts"] = pd.Timestamp.now(tz="UTC")
 
