@@ -60,11 +60,15 @@ def test_dst_boundary_cutoffs(all_bars):
     assert summer.hour == 20
     assert winter.hour == 21
 
-def test_empty_before_histor_starts():
-    df= get_features(sample_days[1], "08:00")
-    assert df["as_of_ts"].is_monotonic_increasing
+def test_empty_before_history_starts():
+    df = get_features("1990-01-02", "08:00")
+    assert df.empty
 
+
+def test_results_are_sorted(sample_days):
+    df = get_features(sample_days[1], "08:00")
+    assert df["as_of_ts"].is_monotonic_increasing
+    
 def test_unknown_table_raises():
     with pytest.raises(KeyError):
         get_features("2024-06-03", "08:00", table="not_a_table")
-        

@@ -61,6 +61,7 @@ def get_features(day,
         return df
 
     df= df[df["as_of_ts"] <= cutoff]
+    # df = df[df["date"] <= pd.Timestamp(day).date()]
 
     return df.sort_values("as_of_ts").reset_index(drop=True)
 
