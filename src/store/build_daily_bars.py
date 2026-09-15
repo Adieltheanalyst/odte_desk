@@ -21,8 +21,10 @@ RENAME = {
 def build_daily_bars(symbol: str = SYMBOL)-> pd.DataFrame:
     raw=pd.read_parquet(RAW_BARS)
     df = raw.rename(columns=RENAME).reset_index()
+    df.columns=[c.lower() for c in df.columns]
 
-    df["date"]= pd.to_datetime(df["date"]).dt.date
+    df["date"] = pd.to_datetime(df["date"]).dt.date
+    df["year"] = pd.to_datetime(df["date"]).dt.year.astype("int32")
     df["symbol"]= symbol
     df["volume"]=df["volume"].astype("int64")
 
@@ -32,7 +34,7 @@ def build_daily_bars(symbol: str = SYMBOL)-> pd.DataFrame:
         df["ingested_ts"]=pd.Timestamp.now(tz="UTC")
     df["ingested_ts"]= pd.to_datetime(df["ingested_ts"],utc=True)
 
-    keep= ["date", "symbol", "open", "high", "low", "close",
+    keep= ["date","year", "symbol", "open", "high", "low", "close",
            "volume", "as_of_ts", "ingested_ts"]
 
     df=df[keep]
@@ -75,7 +77,7 @@ def build_corporate_actions(symbol: str = SYMBOL)-> pd.DataFrame:
 def main() -> int:
     bars=build_daily_bars()
     write_curated(bars,"daily_bars")
-    print(f"{len['date'].min()} -> {bars['date'].max()}")
+    print(f"{bars['date'].min()} -> {bars['date'].max()}")
     actions=build_corporate_actions()
     write_curated(actions, "corporate_actions")
     print(f" {len(actions)} actions, latest {actions["ex_date"].max()}")
