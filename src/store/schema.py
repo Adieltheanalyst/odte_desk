@@ -9,6 +9,7 @@ UTC_TS = pa.timestamp("us", tz="UTC")
 
 DAILY_BARS = pa.schema([
     ("date", pa.date32()),
+    ("year", pa.int32()),
     ("symbol", pa.string()),
     ("open", pa.float64()),
     ("high", pa.float64()),
@@ -49,7 +50,7 @@ OPTION_CHAIN_SNAPSHOT = pa.schema([
 ])
 
 TABLES = {
-    "daily_bars": (DAILY_BARS,"date"),
+    "daily_bars": (DAILY_BARS,"year"),
     "corporate_actions": (CORPORATE_ACTIONS, None),
     "option_chain_snapshot": (OPTION_CHAIN_SNAPSHOT,"date"),
 }
