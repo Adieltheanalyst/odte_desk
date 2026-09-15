@@ -42,7 +42,7 @@ def write_curated(df: pd.DataFrame, table_name: str) -> Path:
     base_dir.mkdir(parents=True, exist_ok=True)
 
     if partition_col:
-        partition = ds.partitioning(
+        partitioning = ds.partitioning(
             pa.schema([schema.field(partition_col)]),
             flavor="hive",
         )
