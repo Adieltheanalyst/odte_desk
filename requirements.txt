@@ -1,0 +1,8 @@
+pandas
+pyarrow
+numpy
+matplotlib
+yfinance
+py_vollib
+pytest
+python-dotenv
