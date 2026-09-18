@@ -55,6 +55,12 @@ TABLES = {
     "option_chain_snapshot": (OPTION_CHAIN_SNAPSHOT,"date"),
 }
 
+AS_OF_COL = {
+    "daily_bars":            "as_of_ts",
+    "corporate_actions":     "ex_date",
+    "option_chain_snapshot": "as_of_ts",
+}
+
 def session_close_utc(day) -> pd.Timestamp:
 
     day = pd.Timestamp(day)
